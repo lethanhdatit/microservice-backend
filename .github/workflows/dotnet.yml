@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ./stepmedia-demo.sln --configuration Release
     - name: Publish application
-      run: dotnet publish "./HubService" -c Release -o release --nologo
+      run: dotnet publish "./stepmedia-demo.sln" -c Release -o release --nologo
