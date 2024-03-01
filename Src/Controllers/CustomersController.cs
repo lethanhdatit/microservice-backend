@@ -19,7 +19,7 @@ namespace stepmedia_demo.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
+        [HttpGet] 
         public async Task<PaginationResult<CustomerDto>> GetList(string? orderBy,
                                                      SortDirection? orderDirection,
                                                      int? page,
