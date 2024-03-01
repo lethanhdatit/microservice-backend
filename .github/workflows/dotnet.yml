@@ -20,9 +20,15 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies ./stepmedia-demo.sln
-      run: dotnet restore
+    - name: Restore dependencies 
+      run: dotnet restore ./stepmedia-demo.sln
     - name: Build
       run: dotnet build --no-restore ./stepmedia-demo.sln --configuration Release
     - name: Publish application
-      run: dotnet publish "./HubService" -c Release -o release --nologo
+      run: dotnet publish "./stepmedia-demo.sln" -c Release -o release --nologo
+    - name: Commit to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: master
+        FOLDER: release
