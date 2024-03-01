@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies ./stepmedia-demo.sln
+    - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore ./stepmedia-demo.sln --configuration Release
