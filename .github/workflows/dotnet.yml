@@ -20,7 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore ./stepmedia-demo.sln
+    - name: Restore dependencies ./stepmedia-demo.sln
+      run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore ./stepmedia-demo.sln
+      run: dotnet build --no-restore ./stepmedia-demo.sln --configuration Release
+    - name: Publish application
+      run: dotnet publish "./HubService" -c Release -o release --nologo
