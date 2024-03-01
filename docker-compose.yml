@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  stepmedia-demo:
+    image: ${DOCKER_REGISTRY-}stepmediademo
+    build:
+      context: Src
+      dockerfile: Dockerfile
