@@ -33,12 +33,16 @@ builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Config for Heroku deployment: dynamic port binding
+if (app.Environment.IsProduction())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var port = Environment.GetEnvironmentVariable("PORT");
+    app.Urls.Add($"http://*:{port}");
 }
+
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
