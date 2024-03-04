@@ -5,15 +5,20 @@ using stepmedia_demo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "allowSpecificOrigins";
+var originWhiteList = builder.Configuration.GetSection("OriginWhiteList")?.Get<string[]>();
 
-builder.Services.AddCors(options =>
+if(originWhiteList != null && originWhiteList.Any())
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins(builder.Configuration.GetSection("OriginWhiteList").Get<string[]>()).AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader();
-                      });
-});
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins(builder.Configuration.GetSection("OriginWhiteList").Get<string[]>()).AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                          });
+    });
+}
+
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -46,7 +51,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors(MyAllowSpecificOrigins);
+if (originWhiteList != null && originWhiteList.Any())
+{
+    app.UseCors(MyAllowSpecificOrigins);
+}
 
 app.UseAuthorization();
 
