@@ -4,14 +4,14 @@ using stepmedia_demo.UnitOfWork;
 using stepmedia_demo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = "allowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.AllowAnyOrigin().AllowAnyHeader();
+                          policy.WithOrigins(builder.Configuration.GetSection("OriginWhiteList").Get<string[]>()).AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader();
                       });
 });
 
