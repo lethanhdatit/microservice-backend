@@ -45,7 +45,7 @@ if (app.Environment.IsProduction())
     app.Urls.Add($"http://*:{port}");
 }
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 app.UseSwagger();
 app.UseSwaggerUI();
 
