@@ -12,9 +12,6 @@ on:
 jobs:
   build:
     runs-on: 'ubuntu-latest'
-    defaults:
-      run:
-        working-directory: ./Src
     steps:
     - uses: actions/checkout@v2
 
@@ -34,7 +31,7 @@ jobs:
         context: ./Src
         push: true
         tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_98f07cd97a3746f89bc73c718d3bd8e2 }}/appsvc/staticsite:${{ github.sha }}
-        file: Dockerfile
+        file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
